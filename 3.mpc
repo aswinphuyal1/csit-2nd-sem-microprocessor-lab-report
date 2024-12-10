@@ -1,0 +1,90 @@
+8000
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}}
+{\colortbl ;\red255\green0\blue0;\red0\green0\blue0;}
+\viewkind4\uc1\pard\li195\cf1\f0\fs20 LXI H, D500h ; Load memory address D500h into H-L (Source 1)\cf2 
+\par \cf1 MOV A, M ; Move the value at D500h into accumulator A\cf2 
+\par MOV B, A         ; Copy the value from accumulator to register B (store value of D500h)
+\par 
+\par LXI H, D600h     ; Load memory address D600h into H-L (Source 2)
+\par MOV A, M         ; Move the value at D600h into accumulator A
+\par 
+\par \cf1 CMP B ; Compare the value in register B (D500h) with accumulator (D600h)\cf2 
+\par JNC ADD          ; If A is greater than or equal to B, jump to addition
+\par 
+\par                                                                                                                                           \cf1 ; Perform subtraction if D500h < D600h\cf2 
+\par CALL SUBTRACT    ; Call the subroutine to perform subtraction
+\par JMP RESULT       ; Jump to the result section
+\par 
+\par ADD:
+\par CALL ADDITION    ; Call the subroutine to perform addition
+\par JMP RESULT       ; Jump to the result section
+\par 
+\par ; Subroutine for Addition
+\par ADDITION:  
+\par MOV A, B         ; Move the first value (D500h) into A
+\par LXI H, D600h     ; Load D600h into H-L
+\par MOV C, M         ; Move the second value into register C
+\par ADD C            ; Add the value from C (D600h) to A
+\par RET              ; Return from subroutine
+\par 
+\par ; Subroutine for Subtraction
+\par SUBTRACT:
+\par MOV A, B         ; Move the first value (D500h) into A
+\par LXI H, D600h     ; Load D600h into H-L
+\par MOV C, M         ; Move the second value into register C
+\par SUB C            ; Subtract the value from C (D600h) from A
+\par RET              ; Return from subroutine
+\par 
+\par RESULT:
+\par HLT              ; Halt the program
+\par \cf0 
+\par }
+<End Codes>
+20
+1| D050| A1
+2| D060| 14
+<End UserData>
+40
+1| 8000| 21
+2| 8001| 50
+3| 8002| D0
+4| 8003| 7E
+5| 8004| 47
+6| 8005| 21
+7| 8006| 60
+8| 8007| D0
+9| 8008| 7E
+10| 8009| B8
+11| 800A| D2
+12| 800B| 13
+13| 800C| 80
+14| 800D| CD
+15| 800E| 19
+16| 800F| 80
+17| 8010| C3
+18| 8011| 26
+19| 8012| 80
+20| 8013| CD
+21| 8014| 20
+22| 8015| 80
+23| 8016| C3
+24| 8017| 26
+25| 8018| 80
+26| 8019| 78
+27| 801A| 21
+28| 801B| 60
+29| 801C| D0
+30| 801D| 4E
+31| 801E| 91
+32| 801F| C9
+33| 8020| 78
+34| 8021| 21
+35| 8022| 60
+36| 8023| D0
+37| 8024| 81
+38| 8025| C9
+39| 8026| 76
+<End HexData>
+
+
+<End Comment>

@@ -1,0 +1,78 @@
+8000
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}}
+{\colortbl ;\red0\green0\blue0;\red255\green0\blue0;}
+\viewkind4\uc1\pard\li195\cf1\f0\fs20 LXI H, 3000h    ; Load the address 3000h into HL (source address)
+\par LXI D, 2000h    ; Load the address 2000h into DE (destination address)
+\par 
+\par REPEAT:         ; Label for the start of the outer loop
+\par     MVI C, 00h  ; Initialize register C to 00h (counter for 1s)
+\par     MVI B, 08h   ; Initialize register B with 08h (8 iterations)
+\par     MOV A, M     ; Load the accumulator A with the value at the address pointed by HL
+\par 
+\par NEXT:           ; Label for the start of the inner loop
+\par     RRC          ; Rotate the accumulator right through the carry
+\par     JNC SKIP     ; Jump to SKIP if there was no carry (0 in the LSB)
+\par     INR C        ; Increment C if there was a carry (1 found)
+\par 
+\par SKIP:           ; Label to skip incrementing C
+\par     DCR B       ; Decrement B (loop counter)
+\par     JNZ NEXT     ; Jump back to NEXT if B is not zero (continue the inner loop)
+\par 
+\par MOV A, C       ; Move the count of 1s from C to A
+\par     STAX D      ; Store the value in A at the address pointed by D
+\par     INX D       ; Increment D to point to the next destination address
+\par     MOV A, L    ; Load L into A (to compare with the limit)
+\par     CPI A0h     ; Compare A with 0A0h (hexadecimal value)
+\par     JNZ REPEAT   ; If A is not equal to 0A0h, repeat the process
+\par 
+\par \cf2 HLT ; Halt the program\cf1 
+\par \cf0 
+\par }
+<End Codes>
+20
+1| 3000| 55
+2| 3001| 66
+3| 3002| 30
+4| 3003| 60
+5| 3004| 09
+6| 3005| 07
+7| 3006| 04
+8| 3007| 41
+9| 3008| 12
+10| 3009| 60
+11| 300A| 12
+<End UserData>
+42
+1| 8000| 21
+2| 8001| 00
+3| 8002| 30
+4| 8003| 11
+5| 8004| 00
+6| 8005| 20
+7| 8006| 0E
+8| 8007| 00
+9| 8008| 06
+10| 8009| 08
+11| 800A| 7E
+12| 800B| 0F
+13| 800C| D2
+14| 800D| 10
+15| 800E| 80
+16| 800F| 0C
+17| 8010| 05
+18| 8011| C2
+19| 8012| 0B
+20| 8013| 80
+21| 8014| 79
+22| 8015| 12
+23| 8016| 13
+24| 8017| 7D
+25| 8018| FE
+26| 8019| A0
+27| 801A| C2
+28| 801B| 06
+29| 801C| 80
+30| 801D| 76
+<End HexData>
+
+<End Comment>

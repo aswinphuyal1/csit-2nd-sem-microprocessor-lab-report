@@ -1,0 +1,32 @@
+8000
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\li195\cf1\f0\fs20 MVI A, BBh ; Load immediate value BBh into accumulator A
+\par PUSH PSW        ; Push the current PSW onto the stack (A = BBh)
+\par MVI A, 55h      ; Load immediate value 55h into accumulator A
+\par PUSH PSW        ; Push the new PSW onto the stack (A = 55h)
+\par POP PSW         ; Pop the last saved PSW (A = 55h) back into PSW
+\par MOV B, A        ; Move the value of A (55h) into register B
+\par POP PSW         ; Pop the previous PSW (which had A = BBh) into PSW
+\par MOV C, A        ; Move the restored value of A (BBh) into register C
+\par HLT              ; Halt the execution
+\par \cf0 
+\par }
+<End Codes>
+20
+<End UserData>
+20
+1| 8000| 3E
+2| 8001| 55
+3| 8002| F5
+4| 8003| 3E
+5| 8004| BB
+6| 8005| F5
+7| 8006| F1
+8| 8007| 47
+9| 8008| F1
+10| 8009| 4F
+11| 800A| 76
+<End HexData>
+
+<End Comment>

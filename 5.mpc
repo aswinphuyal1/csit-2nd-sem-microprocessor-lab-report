@@ -1,0 +1,28 @@
+8000
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}}
+{\colortbl ;\red255\green0\blue0;\red0\green0\blue0;}
+\viewkind4\uc1\pard\li195\cf1\f0\fs20 LXI H, 2000h ; Load the HL register pair with the address 2000h (where the data \cf2 isstored)
+\par MVI C, 0Ah      ; Initialize register C with 0Ah (10 in decimal), which is the count of elements to process
+\par MVI A, 00h      ; Initialize accumulator A with 00h (assuming we want to find the largest value)
+\par 
+\par BACK:           ; Label for the beginning of the loop
+\par     CMP M       ; Compare the current value in memory (pointed by HL) with A (largest value found)
+\par     JC SKP      ; Jump to SKP if the current value is less than A (carry flag is set)
+\par     MOV A, M    ; If current value is greater, move it into A (update largest value)
+\par 
+\par SKP:            ; Label for skipping the update
+\par     INX H       ; Increment HL to point to the next data element in memory
+\par     DCR C       ; Decrement the count in C (indicating one less element to process)
+\par \cf1 JNZ BACK ; Jump back to BACK if C is not zero (continue loop)\cf2 
+\par 
+\par MOV M, A       ; Store the largest value found back into the memory location pointed by HL (after the loop)
+\par HLT             ; Halt the program
+\par \cf0 
+\par }
+<End Codes>
+20
+<End UserData>
+20
+<End HexData>
+
+<End Comment>

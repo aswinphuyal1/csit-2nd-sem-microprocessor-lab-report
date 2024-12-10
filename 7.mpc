@@ -1,0 +1,43 @@
+8000
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}}
+{\colortbl ;\red255\green0\blue0;\red0\green0\blue0;}
+\viewkind4\uc1\pard\li195\cf1\f0\fs20 MVI A, 7Ch ; Load the accumulator A with the value 7Ch\cf2 
+\par \cf1 MVI B, 08h ; Load register B with the value 08h (8 iterations)\cf2 
+\par MVI C, 00h      ; Initialize register C to 00h (counter for 1s)
+\par 
+\par NEXT:           ; Label for the beginning of the loop
+\par     RRC         ; Rotate the accumulator right through the carry
+\par     JNC SKIP    ; Jump to SKIP if there was no carry (0 in the least significant bit)
+\par     INR C       ; Increment C if there was a carry (1 found)
+\par 
+\par SKIP:           ; Label to skip incrementing C
+\par     DCR B       ; Decrement B (decrease the loop counter)
+\par     JNZ NEXT    ; Jump back to NEXT if B is not zero (continue looping)
+\par 
+\par \cf1 HLT ; Halt the program\cf2 
+\par \cf0 
+\par }
+<End Codes>
+20
+<End UserData>
+20
+1| 8000| 3E
+2| 8001| 7C
+3| 8002| 06
+4| 8003| 08
+5| 8004| 0E
+6| 8005| 00
+7| 8006| 0F
+8| 8007| D2
+9| 8008| 0B
+10| 8009| 80
+11| 800A| 0C
+12| 800B| 05
+13| 800C| C2
+14| 800D| 06
+15| 800E| 80
+16| 800F| 76
+<End HexData>
+
+
+<End Comment>

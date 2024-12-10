@@ -1,0 +1,76 @@
+8000
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\li195\cf1\f0\fs20 LXI D C000h
+\par MVI L 0Bh
+\par MVI C 01h
+\par MVI B 01h
+\par MOV A B
+\par STAX D
+\par NEXT: MOV B C
+\par MOV C A
+\par ADD B
+\par INX D
+\par STAX D
+\par DCR L
+\par JNZ NEXT
+\par HLT
+\par LXI D, C000h    ; Load the address C000h into DE (destination address)
+\par MVI L, 0Bh      ; Initialize register L with 0Bh (11 iterations)
+\par MVI C, 01h      ; Initialize register C with 01h (the starting value for addition)
+\par MVI B, 01h      ; Initialize register B with 01h (the first value to add)
+\par MOV A, B        ; Move the value in B to accumulator A
+\par STAX D          ; Store the value in A at the address pointed by D (C000h)
+\par 
+\par NEXT:           ; Label for the start of the loop
+\par     MOV B, C    ; Move the current value in C to B (to use in the next addition)
+\par     MOV C, A    ; Move the current value in A to C (to prepare for the next addition)
+\par     ADD B        ; Add the value in B to A
+\par     INX D       ; Increment D to point to the next memory location
+\par     STAX D      ; Store the result in A at the new address pointed by D
+\par     DCR L       ; Decrement L (the loop counter)
+\par     JNZ NEXT    ; Jump back to NEXT if L is not zero (continue the loop)
+\par 
+\par HLT              ; Halt the program
+\par 
+\par }
+<End Codes>
+20
+1| C000| 01
+2| C001| 02
+3| C002| 03
+4| C003| 05
+5| C004| 08
+6| C005| 0D
+7| C006| 15
+8| C007| 22
+9| C008| 37
+10| C009| 59
+11| C00A| 90
+<End UserData>
+24
+1| 8000| 11
+2| 8001| 00
+3| 8002| C0
+4| 8003| 2E
+5| 8004| 0B
+6| 8005| 0E
+7| 8006| 01
+8| 8007| 06
+9| 8008| 01
+10| 8009| 78
+11| 800A| 12
+12| 800B| 41
+13| 800C| 4F
+14| 800D| 80
+15| 800E| 13
+16| 800F| 12
+17| 8010| 2D
+18| 8011| C2
+19| 8012| 0B
+20| 8013| 80
+21| 8014| 76
+<End HexData>
+
+
+<End Comment>

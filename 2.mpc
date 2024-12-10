@@ -1,0 +1,78 @@
+8000
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\li195\cf1\f0\fs20 LXI H, C000h   ; Load register pair H-L with the source memory address C000h
+\par LXI D, E000h   ; Load register pair D-E with the destination memory address E000h
+\par MVI C, 14h     ; Load register C with the value 14h (20 in decimal), the number of bytes to process
+\par 
+\par COUNT: MOV A, M   ; Move the value at memory location pointed to by H-L into accumulator A
+\par ANI F0h           ; Mask the lower nibble (keep the upper nibble only, clear the lower nibble)
+\par RLC               ; Rotate the accumulator left
+\par RLC               ; Rotate left again (moves the upper nibble to the lower nibble's position)
+\par RLC               ; Rotate left again
+\par RLC               ; Rotate left again (upper nibble now fully shifted to the lower nibble's position)
+\par MOV B, A          ; Store the swapped upper nibble in register B
+\par 
+\par MOV A, M          ; Move the original value again from memory into accumulator A (to get the lower nibble)
+\par ANI 0Fh           ; Mask the upper nibble (keep the lower nibble only, clear the upper nibble)
+\par RLC               ; Rotate the lower nibble left into the upper nibble's position
+\par RLC               ; Rotate left again
+\par RLC               ; Rotate left again
+\par RLC               ; Rotate left again (lower nibble now in the upper nibble's position)
+\par 
+\par JNZ JUMP          ; This jump is unnecessary as the result is never zero, but keep it for structure
+\par MOV A, B          ; Move the value from register B into accumulator A
+\par 
+\par JUMP: ORA B       ; OR the current accumulator with the contents of register B (combine swapped nibbles)
+\par STAX D            ; Store the result into the memory location pointed to by D-E (destination memory)
+\par 
+\par INX H             ; Increment the source address in H-L
+\par INX D             ; Increment the destination address in D-E
+\par DCR C             ; Decrement the counter C (20 bytes to 19, and so on)
+\par JNZ COUNT         ; If C is not zero, jump back to COUNT and process the next byte
+\par 
+\par HLT               ; Halt the program execution
+\par 
+\par }
+<End Codes>
+20
+<End UserData>
+85
+1| 8000| 21
+2| 8001| 00
+3| 8002| C0
+4| 8003| 11
+5| 8004| 00
+6| 8005| E0
+7| 8006| 0E
+8| 8007| 14
+9| 8008| 7E
+10| 8009| E6
+11| 800A| 0F
+12| 800B| 07
+13| 800C| 07
+14| 800D| 07
+15| 800E| 07
+16| 800F| 47
+17| 8010| 7E
+18| 8011| E6
+19| 8012| 0F
+20| 8013| 07
+21| 8014| 07
+22| 8015| 07
+23| 8016| C2
+24| 8017| 1A
+25| 8018| 80
+26| 8019| 78
+27| 801A| B0
+28| 801B| 12
+29| 801C| 23
+30| 801D| 13
+31| 801E| 0D
+32| 801F| C2
+33| 8020| 08
+34| 8021| 80
+35| 8022| 76
+<End HexData>
+
+<End Comment>
